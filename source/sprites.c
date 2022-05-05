@@ -13,9 +13,13 @@ adibide batean oinarrituta.
 
 u16* gfxdino; // Dinosaurio de pies (ambas piernas tocando el suelo)
 u16* gfxdino_izda; //Dino (pierna izquierda levantada)
-u16* gfxdino_dcha;  //Dino (pierna izquierda levantada)
-u16* gfxdino_agachar;  //Dino (pierna izquierda levantada)
-u16* gfxdino_choque;  //Dino (pierna izquierda levantada)
+u16* gfxdino_dcha;  //Dino (pierna derecha levantada)
+
+u16* gfxdino_agachar;  //Dino agachado (pierna ambas en el suelo)
+u16* gfxdino_agachar_dcha;  //Dino agachado (pierna derecha levantada)
+u16* gfxdino_agachar_izda;  //Dino agachado (pierna izquierda levantada)
+
+u16* gfxdino_choque;  //Dino chocado (muerto)
 
 
 u16* gfxromboGrande;
@@ -29,6 +33,8 @@ void memoriaReserba()
 	gfxdino_izda= oamAllocateGfx(&oamMain, SpriteSize_16x16, SpriteColorFormat_256Color);
 	gfxdino_dcha= oamAllocateGfx(&oamMain, SpriteSize_16x16, SpriteColorFormat_256Color);
 	gfxdino_agachar= oamAllocateGfx(&oamMain, SpriteSize_16x16, SpriteColorFormat_256Color);
+	gfxdino_agachar_dcha= oamAllocateGfx(&oamMain, SpriteSize_16x16, SpriteColorFormat_256Color);
+	gfxdino_agachar_izda= oamAllocateGfx(&oamMain, SpriteSize_16x16, SpriteColorFormat_256Color);
 	gfxdino_choque= oamAllocateGfx(&oamMain, SpriteSize_16x16, SpriteColorFormat_256Color);
 
 //	gfxromboGrande=oamAllocateGfx(&oamMain, SpriteSize_32x32, SpriteColorFormat_256Color);
@@ -135,6 +141,48 @@ u8 dino_agachar[256] = { 0	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,
 }
 
 
+//Dino agachado (pierna izda levantada)
+u8 dino_agachar_izda[256] = {0	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	 // 	0	0	0	0	0	0	0	0	9	0	9	9	9	9	9	9
+0	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	 // 	0	0	0	0	0	0	0	0	9	9	9	9	0	0	9	9
+0	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	9	,	0	,	0	,	0	,	0	,	0	,	0	,	9	,	 // 	0	0	0	0	0	0	0	0	9	9	9	9	9	9	9	9
+9	,	9	,	0	,	0	,	0	,	0	,	0	,	9	,	9	,	9	,	9	,	9	,	9	,	9	,	9	,	9	,	 // 	0	0	0	0	0	0	0	0	9	9	9	9	9	9	0	0
+9	,	0	,	9	,	9	,	9	,	9	,	9	,	9	,	9	,	9	,	9	,	9	,	0	,	0	,	9	,	9	,	 // 	0	0	0	0	0	0	0	0	9	9	9	9	9	9	9	9
+9	,	9	,	9	,	9	,	9	,	9	,	9	,	9	,	9	,	9	,	9	,	9	,	9	,	9	,	0	,	0	,	 // 	9	0	0	0	0	0	0	9	9	0	9	9	0	0	0	0
+9	,	9	,	9	,	9	,	9	,	9	,	9	,	9	,	9	,	0	,	9	,	9	,	0	,	0	,	0	,	0	,	 // 	9	9	0	0	0	0	0	9	9	9	9	9	9	9	9	9
+9	,	9	,	9	,	9	,	9	,	9	,	9	,	9	,	0	,	0	,	9	,	9	,	0	,	0	,	0	,	0	,	 // 	9	9	9	9	9	9	9	9	0	0	9	9	0	0	0	0
+0	,	9	,	9	,	9	,	9	,	9	,	9	,	9	,	0	,	9	,	9	,	9	,	9	,	9	,	9	,	9	,	 // 	0	9	9	9	9	9	9	9	0	0	9	9	0	0	0	0
+0	,	0	,	0	,	9	,	9	,	9	,	9	,	9	,	0	,	0	,	0	,	0	,	9	,	9	,	9	,	9	,	 // 	0	9	9	9	9	9	9	9	9	9	9	9	9	9	9	9
+0	,	0	,	0	,	0	,	9	,	0	,	0	,	9	,	0	,	0	,	0	,	0	,	9	,	0	,	0	,	9	,	 // 	0	0	0	9	9	9	9	9	9	0	9	9	0	0	0	0
+0	,	0	,	0	,	0	,	9	,	9	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	 // 	0	0	0	0	9	9	9	9	9	9	9	9	9	9	9	9
+0	,	0	,	9	,	9	,	0	,	0	,	0	,	0	,	9	,	9	,	9	,	9	,	9	,	9	,	9	,	9	,	 // 	0	0	0	0	9	0	0	9	0	0	9	9	0	0	0	0
+9	,	0	,	9	,	9	,	0	,	0	,	0	,	0	,	9	,	9	,	9	,	9	,	9	,	9	,	9	,	9	,	 // 	0	0	0	0	9	0	0	9	0	0	9	9	0	0	0	0
+0	,	0	,	9	,	9	,	0	,	0	,	0	,	0	,	0	,	0	,	9	,	9	,	0	,	0	,	0	,	0	,	 // 	0	0	0	0	9	9	0	0	9	0	0	0	0	0	0	0
+9	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	9	,	9	,	0	,	0	,	0	,	0	,	0	,	0	,	 // 	0	0	0	0	0	0	0	0	9	9	0	0	0	0	0	0
+}
+
+
+//Dino agachado (pierna dcha levantada)
+u8 dino_agachar_dcha[256] = {0	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	 // 	0	0	0	0	0	0	0	0	9	0	9	9	9	9	9	9
+0	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	 // 	0	0	0	0	0	0	0	0	9	9	9	9	0	0	9	9
+0	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	9	,	0	,	0	,	0	,	0	,	0	,	0	,	9	,	 // 	0	0	0	0	0	0	0	0	9	9	9	9	9	9	9	9
+9	,	9	,	0	,	0	,	0	,	0	,	0	,	9	,	9	,	9	,	9	,	9	,	9	,	9	,	9	,	9	,	 // 	0	0	0	0	0	0	0	0	9	9	9	9	9	9	0	0
+9	,	0	,	9	,	9	,	9	,	9	,	9	,	9	,	9	,	9	,	9	,	9	,	0	,	0	,	9	,	9	,	 // 	0	0	0	0	0	0	0	0	9	9	9	9	9	9	9	9
+9	,	9	,	9	,	9	,	9	,	9	,	9	,	9	,	9	,	9	,	9	,	9	,	9	,	9	,	0	,	0	,	 // 	9	0	0	0	0	0	0	9	9	0	9	9	0	0	0	0
+9	,	9	,	9	,	9	,	9	,	9	,	9	,	9	,	9	,	0	,	9	,	9	,	0	,	0	,	0	,	0	,	 // 	9	9	0	0	0	0	0	9	9	9	9	9	9	9	9	9
+9	,	9	,	9	,	9	,	9	,	9	,	9	,	9	,	0	,	0	,	9	,	9	,	0	,	0	,	0	,	0	,	 // 	9	9	9	9	9	9	9	9	0	0	9	9	0	0	0	0
+0	,	9	,	9	,	9	,	9	,	9	,	9	,	9	,	0	,	9	,	9	,	9	,	9	,	9	,	9	,	9	,	 // 	0	9	9	9	9	9	9	9	0	0	9	9	0	0	0	0
+0	,	0	,	0	,	9	,	9	,	9	,	9	,	9	,	0	,	0	,	0	,	0	,	9	,	9	,	9	,	9	,	 // 	0	9	9	9	9	9	9	9	9	9	9	9	9	9	9	9
+0	,	0	,	0	,	0	,	9	,	9	,	0	,	9	,	0	,	0	,	0	,	0	,	9	,	9	,	0	,	9	,	 // 	0	0	0	9	9	9	9	9	9	0	9	9	0	0	0	0
+0	,	0	,	0	,	0	,	9	,	0	,	0	,	9	,	0	,	0	,	0	,	0	,	9	,	9	,	0	,	0	,	 // 	0	0	0	0	9	9	9	9	9	9	9	9	9	9	9	9
+0	,	0	,	9	,	9	,	0	,	0	,	0	,	0	,	9	,	9	,	9	,	9	,	9	,	9	,	9	,	9	,	 // 	0	0	0	0	9	9	0	9	0	0	9	9	0	0	0	0
+9	,	0	,	9	,	9	,	0	,	0	,	0	,	0	,	9	,	9	,	9	,	9	,	9	,	9	,	9	,	9	,	 // 	0	0	0	0	9	9	0	9	0	0	9	9	0	0	0	0
+0	,	0	,	9	,	9	,	0	,	0	,	0	,	0	,	0	,	0	,	9	,	9	,	0	,	0	,	0	,	0	,	 // 	0	0	0	0	9	0	0	9	9	0	0	0	0	0	0	0
+9	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	 // 	0	0	0	0	9	9	0	0	0	0	0	0	0	0	0	0
+}
+
+
+
+
 
 
 // Dino muerto (chocado) -> se le cambia el ojo
@@ -175,6 +223,10 @@ int i;
 	    gfxdino_izda[i] = dino_izda[i*2] | (dino_izda[(i*2)+1]<<8);
 		gfxdino_dcha[i] = dino_dcha[i*2] | (dino_dcha[(i*2)+1]<<8);				
 		gfxdino_agachar[i] = dino_agachar[i*2] | (dino_agachar[(i*2)+1]<<8);	
+	    gfxdino_agachar_izda[i] = dino_agachar_izda[i*2] | (dino_agachar_izda[(i*2)+1]<<8);	
+
+		gfxdino_agachar_dcha[i] = dino_agachar_dcha[i*2] | (dino_agachar_dcha[(i*2)+1]<<8);	
+
 		gfxdino_choque[i] = dino_choque[i*2] | (dino_choque[(i*2)+1]<<8);				
 			
 				
@@ -390,8 +442,110 @@ oamUpdate(&oamMain);
 
 
 
+
+
+
+
+/* Esta función dibuja el dino AGACHAD (pierna izda levantada) O*/
+void MostrarDino_agachar_izda(int indice, int x, int y)
+{ 
+ 
+oamSet(&oamMain, //main graphics engine context
+		indice,           //oam index (0 to 127)  
+		x, y,   //x and y pixle location of the sprite
+		0,                    //priority, lower renders last (on top)
+		0,					  //this is the palette index if multiple palettes or the alpha value if bmp sprite	
+		SpriteSize_16x16,     
+		SpriteColorFormat_256Color, 
+		gfxdino_agachar_izda,//+16*16/2,                  //pointer to the loaded graphics
+		-1,                  //sprite rotation data  
+		false,               //double the size when rotating?
+		false,			//hide the sprite?
+		false, false, //vflip, hflip
+		false	//apply mosaic
+		); 
+	  
+oamUpdate(&oamMain);  
+}
+
+/* Esta función BORRA el dino el cuál ha sido dibujado AGACHADO*/
+void BorrarDino_agachar_izda(int indice, int x, int y)
+{
+
+oamSet(&oamMain, //main graphics engine context
+		indice,           //oam index (0 to 127)  
+		x, y,   //x and y pixle location of the sprite
+		0,                    //priority, lower renders last (on top)
+		0,					  //this is the palette index if multiple palettes or the alpha value if bmp sprite	
+		SpriteSize_16x16,     
+		SpriteColorFormat_256Color, 
+		gfxdino_agachar_izda,//+16*16/2,                  //pointer to the loaded graphics
+		-1,                  //sprite rotation data  
+		false,               //double the size when rotating?
+		true,			//hide the sprite?
+		false, false, //vflip, hflip
+		false	//apply mosaic
+		); 
+oamUpdate(&oamMain); 
+}
+
+
+
+
+
+
+
+/* Esta función dibuja el dino AGACHADO (pierna derecha levantada)*/
+void MostrarDino_agachar_dcha(int indice, int x, int y)
+{ 
+ 
+oamSet(&oamMain, //main graphics engine context
+		indice,           //oam index (0 to 127)  
+		x, y,   //x and y pixle location of the sprite
+		0,                    //priority, lower renders last (on top)
+		0,					  //this is the palette index if multiple palettes or the alpha value if bmp sprite	
+		SpriteSize_16x16,     
+		SpriteColorFormat_256Color, 
+		gfxdino_agachar_dcha,//+16*16/2,                  //pointer to the loaded graphics
+		-1,                  //sprite rotation data  
+		false,               //double the size when rotating?
+		false,			//hide the sprite?
+		false, false, //vflip, hflip
+		false	//apply mosaic
+		); 
+	  
+oamUpdate(&oamMain);  
+}
+
+/* Esta función BORRA el dino el cuál ha sido dibujado AGACHADO*/
+void BorrarDino_agachar_dcha(int indice, int x, int y)
+{
+
+oamSet(&oamMain, //main graphics engine context
+		indice,           //oam index (0 to 127)  
+		x, y,   //x and y pixle location of the sprite
+		0,                    //priority, lower renders last (on top)
+		0,					  //this is the palette index if multiple palettes or the alpha value if bmp sprite	
+		SpriteSize_16x16,     
+		SpriteColorFormat_256Color, 
+		gfxdino_agachar_dcha,//+16*16/2,                  //pointer to the loaded graphics
+		-1,                  //sprite rotation data  
+		false,               //double the size when rotating?
+		true,			//hide the sprite?
+		false, false, //vflip, hflip
+		false	//apply mosaic
+		); 
+oamUpdate(&oamMain); 
+}
+
+
+
+
+
+
+
 /* Esta función dibuja el dino cuando se HA CHOCADO (cuando "muere" el dinosaurio) */
-void MostrarDino_coque(int indice, int x, int y)
+void MostrarDino_choque(int indice, int x, int y)
 { 
  
 oamSet(&oamMain, //main graphics engine context
