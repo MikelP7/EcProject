@@ -40,11 +40,9 @@ void memoriaReserva()
    se le puede asignar un color. El valor 0 es transparente. Los valores sin definir son negros. 
    MODIFICAR SEGÚN LOS COLORES QUE QUERAIS UTILIZAR EN VUESTROS SPRITES*/
 void EstablecerPaletaPrincipal() {
-
     SPRITE_PALETTE[3] = RGB15(31,31,31); // los píxeles con valor 3 serán BLANCO.
     SPRITE_PALETTE[6] = RGB15(0,0,0); // los píxeles con valor 6 serán NEGRO.
-	SPRITE_PALETTE[9] = RGB15(16,16,16); // los píxeles con valor 6 serán NEGRO.
-
+    SPRITE_PALETTE[9] = RGB15(16,16,16); // los píxeles con valor 6 serán NEGRO.
 }
 
 /* definición de un sprite de 16x16 píxeles */
