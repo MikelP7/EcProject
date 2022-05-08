@@ -49,7 +49,8 @@ extern touchPosition PANT_DAT;
 #define MENU        2
 #define CORRER      3
 #define SALTO       4
-#define CHOQUE      5
+#define AGACHADO    5
+#define CHOQUE      6
 
 
 extern int ESTADO;
