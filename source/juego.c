@@ -21,7 +21,6 @@ int tiempo;
 void juego()
 {	
 	// definiciones de variables
-	int i=9;
 	int tecla=0;
 	int puntos=0;
 
@@ -37,7 +36,12 @@ void juego()
 	// Configurar el temporizador.
 	int Latch=39321;
 	int Conf_Tempo=0x0002;
-	ConfigurarTemporizador(Latch, Conf_Tempo);
+	ConfigurarTemporizador0(Latch, Conf_Tempo);
+
+
+	int Latch1=39322;
+	int Conf_Tempo1=0x00C1;
+	ConfigurarTemporizador1(Latch1, Conf_Tempo1);
 
 	// Habilitar las interrupciones del teclado.
 	HabilitarIntTeclado();
@@ -99,19 +103,22 @@ void juego()
 
 		//***CORRER***//
 		if (ESTADO == CORRER) {
+			visualizarFondo01();
+	    		
+		    //animacionDino();
 
 			PonerEnMarchaTempo();
+			//dinoCorriendo();
 
-			if (TeclaPulsada()==B){
-				ESTADO = CHOQUE;
+			// agachar sprite
+			if(TeclaPulsada()==ABAJO){
 
-			iprintf("\x1b[5;10H*GAME OVER*");
-			iprintf("\x1b[10;3HPulsa R para reiniciar.");						
-			iprintf("\x1b[13;3HPulsa A para volver al menu.");
+				consoleClear();
+				ESTADO=AGACHADO;
+				iprintf("\x1b[21;1HESTADO= AGACHADO  ");
+			}	
 
-			//ELIMINAR EN VER. FINAL
-			iprintf("\x1b[21;1HESTADO= CHOQUE  ");
-			}
+		
 
 		}
 
@@ -122,13 +129,14 @@ void juego()
 			//ELIMINAR EN VER. FINAL
 			iprintf("\x1b[21;1HESTADO= CHOQUE   ");
 
+/*
 			if(TeclaPulsada()==ARRIBA){
 
 				consoleClear();
 				ESTADO=MENU;
 			}	
 
-
+*/ 
 			if(TeclaPulsada()==R){
 
 				consoleClear();
@@ -144,6 +152,9 @@ void juego()
 		//***SALTO***//
 		if (ESTADO == SALTO)
 		{
+			//saltar()
+			// ESTADO=CORRER
+
 
 			//ELIMINAR EN VER. FINAL
 			iprintf("\x1b[21;1HESTADO= SALTO  ");

@@ -22,6 +22,18 @@ u16* gfxdino_agachar_izda;  //Dino agachado (pierna izquierda levantada)
 u16* gfxdino_choque;  //Dino chocado (muerto)
 
 
+
+
+u16* gfxarbol_2;  //arbol 2
+u16* gfxarbol_3;  //arbol 3
+u16* gfxarbol_4;  // arbol4
+
+
+u16* gfxpajaro_abajo;
+u16* gfxpajaro_arriba;
+
+
+
 /* Reservar memoria para cada sprite que se quiera mostrar en pantalla.*/
 void memoriaReserva()
 {
@@ -34,15 +46,29 @@ void memoriaReserva()
 	gfxdino_agachar_izda= oamAllocateGfx(&oamMain, SpriteSize_16x16, SpriteColorFormat_256Color);
 	gfxdino_choque= oamAllocateGfx(&oamMain, SpriteSize_16x16, SpriteColorFormat_256Color);
 
+
+	gfxarbol_2= oamAllocateGfx(&oamMain, SpriteSize_16x16, SpriteColorFormat_256Color);
+	gfxarbol_3= oamAllocateGfx(&oamMain, SpriteSize_16x16, SpriteColorFormat_256Color);
+	gfxarbol_4= oamAllocateGfx(&oamMain, SpriteSize_16x16, SpriteColorFormat_256Color);
+
+	gfxpajaro_abajo= oamAllocateGfx(&oamMain, SpriteSize_16x16, SpriteColorFormat_256Color);
+	gfxpajaro_arriba= oamAllocateGfx(&oamMain, SpriteSize_16x16, SpriteColorFormat_256Color);
+
 }
 
 /* A cada uno de los 256 valores que puede tomar un pixel en la PALETA PRINCIPAL
    se le puede asignar un color. El valor 0 es transparente. Los valores sin definir son negros. 
    MODIFICAR SEGÚN LOS COLORES QUE QUERAIS UTILIZAR EN VUESTROS SPRITES*/
 void EstablecerPaletaPrincipal() {
+
+	SPRITE_PALETTE[1] = RGB15(31,0,0); // los píxeles con valor 3 serán ROJO.
+
     SPRITE_PALETTE[3] = RGB15(31,31,31); // los píxeles con valor 3 serán BLANCO.
     SPRITE_PALETTE[6] = RGB15(0,0,0); // los píxeles con valor 6 serán NEGRO.
-    SPRITE_PALETTE[9] = RGB15(16,16,16); // los píxeles con valor 6 serán NEGRO.
+	SPRITE_PALETTE[9] = RGB15(16,16,16); // los píxeles con valor 9 GRIS NORMAL
+	SPRITE_PALETTE[11] = RGB15(8,8,8); // los píxeles con valor 3 serán GRIS OSCURO.
+
+
 }
 
 /* definición de un sprite de 16x16 píxeles */
@@ -199,7 +225,7 @@ u8 dino_choque[256] =  {
 0	,	9	,	9	,	9	,	9	,	9	,	9	,	9	,	0	,	9	,	9	,	9	,	9	,	9	,	9	,	9	,	 // 	0	9	9	9	9	9	9	9	9	9	9	0	9	0	0	0
 0	,	0	,	0	,	9	,	9	,	9	,	9	,	9	,	0	,	0	,	0	,	0	,	9	,	9	,	9	,	9	,	 // 	0	9	9	9	9	9	9	9	9	9	9	0	0	0	0	0
 0	,	0	,	0	,	0	,	9	,	9	,	0	,	9	,	0	,	0	,	0	,	0	,	9	,	0	,	0	,	0	,	 // 	0	0	0	9	9	9	9	9	9	9	9	0	0	0	0	0
-0	,	0	,	0	, 	0	,	9	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	9	,	9	,	0	,	0	,	 // 	0	0	0	0	9	9	9	9	9	9	0	0	0	0	0	0
+0	,	0	,	0	,	0	,	9	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	9	,	9	,	0	,	0	,	 // 	0	0	0	0	9	9	9	9	9	9	0	0	0	0	0	0
 9	,	9	,	9	,	0	,	9	,	0	,	0	,	0	,	9	,	9	,	9	,	0	,	0	,	0	,	0	,	0	,	 // 	0	0	0	0	9	9	0	9	9	0	0	0	0	0	0	0
 9	,	9	,	9	,	0	,	0	,	0	,	0	,	0	,	9	,	9	,	0	,	0	,	0	,	0	,	0	,	0	,	 // 	0	0	0	0	9	0	0	0	9	0	0	0	0	0	0	0
 9	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	9	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	 // 	0	0	0	0	9	0	0	0	9	0	0	0	0	0	0	0
@@ -211,10 +237,118 @@ u8 dino_choque[256] =  {
 
 
 
+// 3 tipos de arbol (CACTUS)
+u8 arbol_2[256] = 
+{
+0	,	0	,	0	,	0	,	0	,	0	,	0	,	9	,	0	,	0	,	0	,	11	,	0	,	0	,	11	,	9	,	 // 	0	0	0	0	0	0	0	9	0	0	0	0	0	0	0	0
+0	,	0	,	0	,	9	,	9	,	0	,	9	,	9	,	0	,	0	,	0	,	9	,	9	,	0	,	9	,	11	,	 // 	0	0	0	11	0	0	11	9	9	0	0	0	0	0	0	0
+0	,	0	,	0	,	11	,	9	,	9	,	9	,	9	,	0	,	0	,	0	,	9	,	9	,	9	,	9	,	9	,	 // 	0	0	0	9	9	0	9	9	9	0	0	0	0	0	0	0
+0	,	0	,	0	,	0	,	11	,	0	,	11	,	9	,	0	,	0	,	0	,	0	,	0	,	0	,	9	,	9	,	 // 	0	0	0	9	9	0	9	11	11	0	0	0	0	0	0	0
+0	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	9	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	 // 	0	0	0	11	9	9	9	9	9	0	0	0	0	0	0	0
+9	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	11	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	 // 	0	0	0	9	9	9	9	9	9	0	0	0	0	0	0	0
+9	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	9	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	 // 	0	0	0	0	11	0	11	9	9	0	0	0	0	0	0	0
+9	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	9	,	0	,	9	,	11	,	0	,	0	,	0	,	0	,	 // 	0	0	0	0	0	0	9	9	9	0	9	11	0	0	0	0
+0	,	0	,	0	,	0	,	0	,	0	,	11	,	9	,	0	,	0	,	0	,	0	,	0	,	0	,	9	,	9	,	 // 	0	0	0	0	0	0	11	9	9	0	9	9	0	0	0	0
+0	,	0	,	0	,	0	,	0	,	0	,	9	,	9	,	0	,	0	,	0	,	0	,	0	,	11	,	9	,	9	,	 // 	0	0	0	0	0	0	9	9	9	9	9	9	11	0	0	0
+0	,	0	,	0	,	0	,	0	,	9	,	9	,	9	,	0	,	0	,	0	,	0	,	0	,	0	,	9	,	9	,	 // 	0	0	0	0	0	0	9	9	11	9	11	9	0	0	0	0
+0	,	0	,	0	,	0	,	0	,	0	,	11	,	9	,	0	,	0	,	0	,	0	,	0	,	0	,	9	,	9	,	 // 	0	0	0	0	0	11	9	9	9	0	0	0	0	0	0	0
+9	,	0	,	9	,	9	,	0	,	0	,	0	,	0	,	9	,	9	,	9	,	9	,	11	,	0	,	0	,	0	,	 // 	0	0	0	0	0	9	9	9	9	0	0	0	0	0	0	0
+11	,	9	,	11	,	9	,	0	,	0	,	0	,	0	,	9	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	 // 	0	0	0	0	0	0	9	9	9	11	0	0	0	0	0	0
+9	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	9	,	11	,	0	,	0	,	0	,	0	,	0	,	0	,	 // 	0	0	0	0	0	0	11	9	9	0	0	0	0	0	0	0
+9	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	9	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	 // 	0	0	0	0	0	0	9	9	9	0	0	0	0	0	0	0
+};
+
+
+u8 arbol_3[256] = 
+{
+0	,	0	,	0	,	0	,	0	,	0	,	0	,	9	,	0	,	0	,	0	,	0	,	0	,	0	,	11	,	9	,	 // 	0	0	0	0	0	0	0	9	0	0	0	0	0	0	0	0
+0	,	0	,	0	,	0	,	0	,	0	,	9	,	9	,	0	,	0	,	0	,	0	,	0	,	0	,	9	,	11	,	 // 	0	0	0	0	0	0	11	9	9	0	0	0	0	0	0	0
+0	,	0	,	0	,	0	,	0	,	0	,	9	,	9	,	0	,	0	,	0	,	0	,	0	,	0	,	9	,	9	,	 // 	0	0	0	0	0	0	9	9	9	0	0	0	0	0	0	0
+0	,	0	,	0	,	11	,	9	,	0	,	11	,	9	,	0	,	0	,	0	,	9	,	9	,	0	,	9	,	9	,	 // 	0	0	0	0	0	0	9	11	9	0	0	0	0	0	0	0
+0	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	9	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	 // 	0	0	0	0	0	0	9	9	9	0	0	0	0	0	0	0
+9	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	9	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	 // 	0	0	0	0	0	0	9	9	9	0	0	9	9	0	0	0
+9	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	9	,	0	,	0	,	9	,	9	,	0	,	0	,	0	,	 // 	0	0	0	11	9	0	11	9	9	9	9	9	11	0	0	0
+9	,	9	,	9	,	9	,	11	,	0	,	0	,	0	,	9	,	9	,	11	,	9	,	9	,	0	,	0	,	0	,	 // 	0	0	0	9	9	0	9	9	9	9	11	9	9	0	0	0
+0	,	0	,	11	,	9	,	9	,	9	,	9	,	9	,	0	,	0	,	0	,	0	,	9	,	9	,	9	,	11	,	 // 	0	0	11	9	9	9	9	9	9	9	9	9	0	0	0	0
+0	,	0	,	0	,	0	,	0	,	0	,	9	,	9	,	0	,	0	,	0	,	0	,	0	,	0	,	9	,	9	,	 // 	0	0	0	0	9	9	9	11	9	0	0	11	0	0	0	0
+0	,	0	,	0	,	0	,	0	,	0	,	9	,	9	,	0	,	0	,	0	,	0	,	0	,	0	,	9	,	9	,	 // 	0	0	0	0	0	0	9	9	9	0	0	0	0	0	0	0
+0	,	0	,	0	,	0	,	0	,	0	,	9	,	9	,	0	,	0	,	0	,	0	,	0	,	0	,	9	,	9	,	 // 	0	0	0	0	0	0	9	9	9	0	0	0	0	0	0	0
+9	,	9	,	9	,	9	,	0	,	0	,	0	,	0	,	9	,	0	,	0	,	11	,	0	,	0	,	0	,	0	,	 // 	0	0	0	0	0	0	9	9	9	0	0	0	0	0	0	0
+9	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	9	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	 // 	0	0	0	0	0	0	9	9	11	0	0	0	0	0	0	0
+9	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	11	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	 // 	0	0	0	0	0	0	9	9	9	0	0	0	0	0	0	0
+9	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	9	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	 // 	0	0	0	0	0	0	9	9	9	0	0	0	0	0	0	0
+};
+
+u8 arbol_4[256] = 
+{
+0	,	0	,	0	,	0	,	0	,	0	,	0	,	9	,	0	,	0	,	0	,	0	,	0	,	0	,	9	,	9	,	 // 	0	0	0	0	0	0	0	9	0	0	0	0	0	0	0	0
+0	,	0	,	0	,	0	,	0	,	0	,	9	,	9	,	0	,	0	,	0	,	0	,	0	,	0	,	11	,	11	,	 // 	0	0	0	0	0	0	9	9	11	0	0	11	0	0	0	0
+0	,	0	,	0	,	0	,	0	,	0	,	9	,	9	,	0	,	0	,	0	,	0	,	0	,	0	,	9	,	9	,	 // 	0	0	0	0	0	0	9	9	9	0	9	9	0	0	0	0
+0	,	0	,	0	,	0	,	0	,	0	,	9	,	9	,	0	,	0	,	0	,	11	,	9	,	0	,	9	,	9	,	 // 	0	0	0	0	0	0	11	11	9	0	9	9	0	0	0	0
+0	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	11	,	0	,	0	,	11	,	0	,	0	,	0	,	0	,	 // 	0	0	0	0	0	0	9	9	9	9	9	11	0	0	0	0
+9	,	0	,	9	,	9	,	0	,	0	,	0	,	0	,	9	,	0	,	9	,	9	,	0	,	0	,	0	,	0	,	 // 	0	0	0	0	0	0	9	9	9	9	9	9	0	0	0	0
+9	,	9	,	9	,	11	,	0	,	0	,	0	,	0	,	9	,	9	,	9	,	9	,	0	,	0	,	0	,	0	,	 // 	0	0	0	0	0	0	9	9	11	0	11	0	0	0	0	0
+11	,	0	,	11	,	0	,	0	,	0	,	0	,	0	,	9	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	 // 	0	0	0	11	9	0	9	9	9	0	0	0	0	0	0	0
+0	,	0	,	0	,	9	,	9	,	0	,	9	,	9	,	0	,	0	,	11	,	9	,	9	,	9	,	9	,	9	,	 // 	0	0	0	9	9	0	9	9	11	0	0	0	0	0	0	0
+0	,	0	,	0	,	9	,	11	,	9	,	11	,	9	,	0	,	0	,	0	,	0	,	0	,	0	,	9	,	9	,	 // 	0	0	11	9	9	9	9	9	9	0	0	0	0	0	0	0
+0	,	0	,	0	,	0	,	0	,	0	,	9	,	9	,	0	,	0	,	0	,	0	,	0	,	11	,	9	,	9	,	 // 	0	0	0	9	11	9	11	9	9	0	0	0	0	0	0	0
+0	,	0	,	0	,	0	,	0	,	0	,	9	,	9	,	0	,	0	,	0	,	0	,	0	,	0	,	9	,	9	,	 // 	0	0	0	0	0	0	9	9	9	11	0	0	0	0	0	0
+11	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	9	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	 // 	0	0	0	0	0	0	9	9	9	9	0	0	0	0	0	0
+9	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	9	,	11	,	0	,	0	,	0	,	0	,	0	,	0	,	 // 	0	0	0	0	0	11	9	9	9	0	0	0	0	0	0	0
+9	,	9	,	0	,	0	,	0	,	0	,	0	,	0	,	9	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	 // 	0	0	0	0	0	0	9	9	11	0	0	0	0	0	0	0
+11	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	9	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	 // 	0	0	0	0	0	0	9	9	9	0	0	0	0	0	0	0
+};
+
+
+
+
+//Pajaro alas ABAJO (terodactilo)
+u8 pajaro_abajo[256] = 
+{
+0	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	 // 	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+0	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	9	,	0	,	0	,	0	,	 // 	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+0	,	0	,	0	,	9	,	9	,	0	,	0	,	0	,	0	,	0	,	9	,	9	,	9	,	0	,	0	,	0	,	 // 	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+0	,	9	,	1	,	9	,	9	,	0	,	0	,	0	,	9	,	9	,	9	,	9	,	9	,	9	,	9	,	11	,	 // 	0	0	0	0	9	0	0	0	0	0	0	0	0	0	0	0
+0	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	 // 	0	0	0	9	9	0	0	0	0	0	0	0	0	0	0	0
+0	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	 // 	0	0	9	9	9	0	0	0	0	0	0	0	0	0	0	0
+0	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	 // 	0	9	1	9	9	0	0	0	0	0	0	0	0	0	0	0
+0	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	11	,	11	,	11	,	9	,	9	,	9	,	9	,	9	,	 // 	9	9	9	9	9	9	9	11	11	11	11	9	9	9	9	9
+0	,	0	,	9	,	9	,	0	,	0	,	9	,	11	,	9	,	9	,	9	,	0	,	0	,	0	,	9	,	11	,	 // 	0	0	9	9	0	0	9	11	11	11	11	9	9	0	0	0
+0	,	0	,	0	,	0	,	0	,	0	,	0	,	11	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	11	,	 // 	9	9	9	0	0	0	9	11	11	11	9	9	9	0	0	0
+0	,	0	,	0	,	0	,	0	,	0	,	0	,	11	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	 // 	0	0	0	0	0	0	0	11	11	11	9	9	9	9	9	9
+0	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	 // 	0	0	0	0	0	0	0	11	11	11	0	0	0	0	0	0
+11	,	11	,	11	,	9	,	9	,	0	,	0	,	0	,	11	,	11	,	9	,	9	,	9	,	0	,	0	,	0	,	 // 	0	0	0	0	0	0	0	11	0	0	0	0	0	0	0	0
+11	,	11	,	9	,	9	,	9	,	9	,	9	,	9	,	11	,	11	,	0	,	0	,	0	,	0	,	0	,	0	,	 // 	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+0	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	 // 	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+0	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	 // 	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+};
+
+
+
+//Pajaro alas ARRIBA (terodactilo)
+u8 pajaro_arriba[256] = 
+{
+0	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	 // 	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+0	,	0	,	0	,	0	,	0	,	0	,	0	,	11	,	0	,	0	,	0	,	0	,	9	,	0	,	0	,	11	,	 // 	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+0	,	0	,	0	,	9	,	9	,	0	,	0	,	11	,	0	,	0	,	9	,	9	,	9	,	0	,	0	,	11	,	 // 	0	0	0	0	0	0	0	11	0	0	0	0	0	0	0	0
+0	,	9	,	1	,	9	,	9	,	0	,	0	,	11	,	9	,	9	,	9	,	9	,	9	,	9	,	9	,	9	,	 // 	0	0	0	0	9	0	0	11	11	11	0	0	0	0	0	0
+0	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	 // 	0	0	0	9	9	0	0	11	11	11	0	0	0	0	0	0
+0	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	11	,	11	,	0	,	0	,	0	,	0	,	0	,	0	,	 // 	0	0	9	9	9	0	0	11	11	11	11	0	0	0	0	0
+11	,	11	,	0	,	0	,	0	,	0	,	0	,	0	,	11	,	11	,	11	,	0	,	0	,	0	,	0	,	0	,	 // 	0	9	1	9	9	0	0	11	11	11	11	0	0	0	0	0
+11	,	11	,	11	,	0	,	0	,	0	,	0	,	0	,	9	,	9	,	9	,	9	,	9	,	9	,	9	,	9	,	 // 	9	9	9	9	9	9	9	9	9	9	9	9	9	9	9	9
+0	,	0	,	9	,	9	,	0	,	0	,	9	,	9	,	9	,	9	,	9	,	0	,	0	,	0	,	9	,	9	,	 // 	0	0	9	9	0	0	9	9	9	9	9	9	9	0	0	0
+0	,	0	,	0	,	0	,	0	,	0	,	0	,	9	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	 // 	9	9	9	0	0	0	9	9	9	9	9	9	9	0	0	0
+0	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	 // 	0	0	0	0	0	0	0	9	9	9	9	9	9	9	9	9
+0	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	 // 	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+9	,	9	,	9	,	9	,	9	,	0	,	0	,	0	,	9	,	9	,	9	,	9	,	9	,	0	,	0	,	0	,	 // 	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+9	,	9	,	9	,	9	,	9	,	9	,	9	,	9	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	 // 	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+0	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	 // 	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+0	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	0	,	 // 	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+};
+
 
 
 /* Carga en memoria cada uno de los sprites que hemos dibujado. */
-
 void GuardarSpritesMemoria(){ 
 	
 int i;
@@ -229,8 +363,16 @@ int i;
 		gfxdino_agachar_dcha[i] = dino_agachar_dcha[i*2] | (dino_agachar_dcha[(i*2)+1]<<8);	
 		gfxdino_choque[i] = dino_choque[i*2] | (dino_choque[(i*2)+1]<<8);				
 			
-				
-				
+
+		gfxarbol_2[i] = gfxarbol_2[i*2] | (gfxarbol_2[(i*2)+1]<<8);				
+		gfxarbol_3[i] = gfxarbol_3[i*2] | (gfxarbol_3[(i*2)+1]<<8);				
+		gfxarbol_4[i] = gfxarbol_4[i*2] | (gfxarbol_4[(i*2)+1]<<8);		
+
+		gfxpajaro_abajo[i] = pajaro_abajo[i*2] | (pajaro_abajo[(i*2)+1]<<8);		
+		gfxpajaro_arriba[i] = pajaro_arriba[i*2] | (pajaro_arriba[(i*2)+1]<<8);		
+
+
+
 	}
 
 }
@@ -575,4 +717,255 @@ oamUpdate(&oamMain);
 }
 
 
+
+
+
+
+
+//FUNCIONES PARA MOSTRAR-BORRAR LOS 3 tipos de arboles
+
+/*mostrar-borrar arbol 42*/
+void MostrarArbol_2(int indice, int x, int y)
+{ 
+oamSet(&oamMain, //main graphics engine context
+		indice,           //oam index (0 to 127)  
+		x, y,   //x and y pixle location of the sprite
+		0,                    //priority, lower renders last (on top)
+		0,					  //this is the palette index if multiple palettes or the alpha value if bmp sprite	
+		SpriteSize_16x16,     
+		SpriteColorFormat_256Color, 
+		gfxarbol_2,//+16*16/2,                  //pointer to the loaded graphics
+		-1,                  //sprite rotation data  
+		false,               //double the size when rotating?
+		false,			//hide the sprite?
+		false, false, //vflip, hflip
+		false	//apply mosaic
+		); 
+	  
+oamUpdate(&oamMain);  
+}
+void BorrarArbol_2(int indice, int x, int y)
+{
+oamSet(&oamMain, //main graphics engine context
+		indice,           //oam index (0 to 127)  
+		x, y,   //x and y pixle location of the sprite
+		0,                    //priority, lower renders last (on top)
+		0,					  //this is the palette index if multiple palettes or the alpha value if bmp sprite	
+		SpriteSize_16x16,     
+		SpriteColorFormat_256Color, 
+		gfxarbol_2,//+16*16/2,                  //pointer to the loaded graphics
+		-1,                  //sprite rotation data  
+		false,               //double the size when rotating?
+		true,			//hide the sprite?
+		false, false, //vflip, hflip
+		false	//apply mosaic
+		); 
+oamUpdate(&oamMain); 
+}
+
+
+/*mostrar-borrar arbol 3*/
+void MostrarArbol_3(int indice, int x, int y)
+{ 
+oamSet(&oamMain, //main graphics engine context
+		indice,           //oam index (0 to 127)  
+		x, y,   //x and y pixle location of the sprite
+		0,                    //priority, lower renders last (on top)
+		0,					  //this is the palette index if multiple palettes or the alpha value if bmp sprite	
+		SpriteSize_16x16,     
+		SpriteColorFormat_256Color, 
+		gfxarbol_3,//+16*16/2,                  //pointer to the loaded graphics
+		-1,                  //sprite rotation data  
+		false,               //double the size when rotating?
+		false,			//hide the sprite?
+		false, false, //vflip, hflip
+		false	//apply mosaic
+		); 
+	  
+oamUpdate(&oamMain);  
+}
+void BorrarArbol_3(int indice, int x, int y)
+{
+oamSet(&oamMain, //main graphics engine context
+		indice,           //oam index (0 to 127)  
+		x, y,   //x and y pixle location of the sprite
+		0,                    //priority, lower renders last (on top)
+		0,					  //this is the palette index if multiple palettes or the alpha value if bmp sprite	
+		SpriteSize_16x16,     
+		SpriteColorFormat_256Color, 
+		gfxarbol_3,//+16*16/2,                  //pointer to the loaded graphics
+		-1,                  //sprite rotation data  
+		false,               //double the size when rotating?
+		true,			//hide the sprite?
+		false, false, //vflip, hflip
+		false	//apply mosaic
+		); 
+oamUpdate(&oamMain); 
+}
+
+
+/*mostrar-borrar arbol 4*/
+void MostrarArbol_4(int indice, int x, int y)
+{ 
+oamSet(&oamMain, //main graphics engine context
+		indice,           //oam index (0 to 127)  
+		x, y,   //x and y pixle location of the sprite
+		0,                    //priority, lower renders last (on top)
+		0,					  //this is the palette index if multiple palettes or the alpha value if bmp sprite	
+		SpriteSize_16x16,     
+		SpriteColorFormat_256Color, 
+		gfxarbol_4,//+16*16/2,                  //pointer to the loaded graphics
+		-1,                  //sprite rotation data  
+		false,               //double the size when rotating?
+		false,			//hide the sprite?
+		false, false, //vflip, hflip
+		false	//apply mosaic
+		); 
+	  
+oamUpdate(&oamMain);  
+}
+void BorrarArbol_4(int indice, int x, int y)
+{
+
+oamSet(&oamMain, //main graphics engine context
+		indice,           //oam index (0 to 127)  
+		x, y,   //x and y pixle location of the sprite
+		0,                    //priority, lower renders last (on top)
+		0,					  //this is the palette index if multiple palettes or the alpha value if bmp sprite	
+		SpriteSize_16x16,     
+		SpriteColorFormat_256Color, 
+		gfxarbol_4,//+16*16/2,                  //pointer to the loaded graphics
+		-1,                  //sprite rotation data  
+		false,               //double the size when rotating?
+		true,			//hide the sprite?
+		false, false, //vflip, hflip
+		false	//apply mosaic
+		); 
+oamUpdate(&oamMain); 
+}
+
+
+
+
+
+
+
+
+
+//FUNCIONES PARA MOSTRAR-BORRAR sprite del pajaro
+
+/*mostrar-borrar pajaro alas arriba*/
+void MostrarPajaro_alas_arriba(int indice, int x, int y)
+{ 
+oamSet(&oamMain, //main graphics engine context
+		indice,           //oam index (0 to 127)  
+		x, y,   //x and y pixle location of the sprite
+		0,                    //priority, lower renders last (on top)
+		0,					  //this is the palette index if multiple palettes or the alpha value if bmp sprite	
+		SpriteSize_16x16,     
+		SpriteColorFormat_256Color, 
+		gfxpajaro_arriba,//+16*16/2,                  //pointer to the loaded graphics
+		-1,                  //sprite rotation data  
+		false,               //double the size when rotating?
+		false,			//hide the sprite?
+		false, false, //vflip, hflip
+		false	//apply mosaic
+		); 
+	  
+oamUpdate(&oamMain);  
+}
+void BorrarPajaro_alas_arriba(int indice, int x, int y)
+{
+
+oamSet(&oamMain, //main graphics engine context
+		indice,           //oam index (0 to 127)  
+		x, y,   //x and y pixle location of the sprite
+		0,                    //priority, lower renders last (on top)
+		0,					  //this is the palette index if multiple palettes or the alpha value if bmp sprite	
+		SpriteSize_16x16,     
+		SpriteColorFormat_256Color, 
+		gfxpajaro_arriba,//+16*16/2,                  //pointer to the loaded graphics
+		-1,                  //sprite rotation data  
+		false,               //double the size when rotating?
+		true,			//hide the sprite?
+		false, false, //vflip, hflip
+		false	//apply mosaic
+		); 
+oamUpdate(&oamMain); 
+}
+
+
+/*mostrar-borrar pajaro alas abajo*/
+void MostrarPajaro_alas_abajo(int indice, int x, int y)
+{ 
+oamSet(&oamMain, //main graphics engine context
+		indice,           //oam index (0 to 127)  
+		x, y,   //x and y pixle location of the sprite
+		0,                    //priority, lower renders last (on top)
+		0,					  //this is the palette index if multiple palettes or the alpha value if bmp sprite	
+		SpriteSize_16x16,     
+		SpriteColorFormat_256Color, 
+		gfxpajaro_abajo,//+16*16/2,                  //pointer to the loaded graphics
+		-1,                  //sprite rotation data  
+		false,               //double the size when rotating?
+		false,			//hide the sprite?
+		false, false, //vflip, hflip
+		false	//apply mosaic
+		); 
+	  
+oamUpdate(&oamMain);  
+}
+void BorrarPajaro_alas_abajo(int indice, int x, int y)
+{
+
+oamSet(&oamMain, //main graphics engine context
+		indice,           //oam index (0 to 127)  
+		x, y,   //x and y pixle location of the sprite
+		0,                    //priority, lower renders last (on top)
+		0,					  //this is the palette index if multiple palettes or the alpha value if bmp sprite	
+		SpriteSize_16x16,     
+		SpriteColorFormat_256Color, 
+		gfxpajaro_abajo,//+16*16/2,                  //pointer to the loaded graphics
+		-1,                  //sprite rotation data  
+		false,               //double the size when rotating?
+		true,			//hide the sprite?
+		false, false, //vflip, hflip
+		false	//apply mosaic
+		); 
+oamUpdate(&oamMain); 
+}
+
+
+
+
+void animacionDino(){
+	int cont=0;
+	while (cont<6){  //6 veces
+		MostrarDino(1,10,131);
+		BorrarDino(1,10,131);
+
+		MostrarDino_dcha(1,10,131);
+		BorrarDino_dcha(1,10,131);
+
+		MostrarDino_izda(1,10,131);
+		BorrarDino_izda(1,10,131);
+		cont++;
+	}
+
+
+}
+
+/*
+void dinoCorriendo(){
+	int x=10;
+	while (x<240){
+	   MostrarDino(1,x,131);
+	   BorrarDino(1,x,131);
+	   x++;
+
+	}
+	
+
+}
+*/
 

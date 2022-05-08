@@ -8,32 +8,20 @@
 
 #include "fondos.h"
 #include "graficos.h"
-#include "Puerta.h"
-#include "PuertaAbierta.h"
+
 #include "Intro.h"
 #include "Menu.h"
+
+
+#include "Fondo01.h"
+#include "Fondo02.h"
 
 /* Se elige el canal de DMA que se utilizará para copiar las imágenes en memoria.*/
 static const int DMA_CHANNEL = 3;
 
 /* Para cada fondo que se quiera visualizar hay que escribir un procedimiento como el siguiente */
 
-void visualizarPuerta() {
-	
-	dmaCopyHalfWords(DMA_CHANNEL,
-                     PuertaBitmap, /* Variable que se genera automaticamente */
-                     (uint16 *)BG_BMP_RAM(0), /* Dirección del fondo principal */
-                     PuertaBitmapLen); /* Longitud en bytes, variable que se genera automáticamente */
-}
 
-
-void visualizarPuertaAbierta() {
-		
-    dmaCopyHalfWords(DMA_CHANNEL,
-                     PuertaAbiertaBitmap, /* Variable que se genera automaticamente */
-                     (uint16 *)BG_BMP_RAM(0), /* Dirección del fondo principal */
-                     PuertaAbiertaBitmapLen); /* Longitud en bytes, variable que se genera automáticamente */
-}
 
 
 void visualizarIntro() {
@@ -52,3 +40,26 @@ void visualizarMenu() {
                      (uint16 *)BG_BMP_RAM(0),
                      MenuBitmapLen);
 }
+
+
+
+//fondos
+void visualizarFondo01() {
+	
+	dmaCopyHalfWords(DMA_CHANNEL,
+                     Fondo01Bitmap, /* Variable que se genera automaticamente */
+                     (uint16 *)BG_BMP_RAM(0), /* Dirección del fondo principal */
+                     Fondo01BitmapLen); /* Longitud en bytes, variable que se genera automáticamente */
+}
+
+
+
+void visualizarFondo02() {
+	
+	dmaCopyHalfWords(DMA_CHANNEL,
+                     Fondo02Bitmap, /* Variable que se genera automaticamente */
+                     (uint16 *)BG_BMP_RAM(0), /* Dirección del fondo principal */
+                     Fondo02BitmapLen); /* Longitud en bytes, variable que se genera automáticamente */
+}
+
+

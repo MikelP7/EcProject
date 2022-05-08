@@ -23,6 +23,9 @@ definiciones.h
 #define TIMER0_CNT   (*(vuint16*)0x04000102) //registro de control
 #define TIMER0_DAT    (*(vuint16*)0x04000100) //registro de datos
 
+//registros del temporizador Timer0
+#define TIMER1_CNT   (*(vuint16*)0x04000106) //registro de control
+#define TIMER1_DAT    (*(vuint16*)0x04000104) //registro de datos
 
 
 //Acceso a los registros de la pantalla táctil

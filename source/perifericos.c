@@ -50,12 +50,22 @@ void ConfigurarTeclado(int Conf_Tec)
 }
 
 
-void ConfigurarTemporizador(int Latch, int Conf_Tempo)
+void ConfigurarTemporizador0(int Latch, int Conf_Tempo)
 {
 	//Configuración del temporizador. El latch es el valor del registro de datos del temporizador
 	//Activar los bits del registro de control necesarios en base a los bits activados en el parámetro Conf_Tempo
 	TIMER0_DAT = Latch;
 	TIMER0_CNT |= Conf_Tempo;
+	
+}
+
+//EL SEGUNDO TIMER LO HAGO METIENDO DIRECTAMENTE EL VALOR DE TIMER1_CNT
+void ConfigurarTemporizador1(int Latch, int Conf_Tempo)
+{
+	//Configuración del temporizador. El latch es el valor del registro de datos del temporizador
+	//Activar los bits del registro de control necesarios en base a los bits activados en el parámetro Conf_Tempo
+	TIMER1_DAT = Latch;
+	TIMER1_CNT = Conf_Tempo; 
 	
 }
 
