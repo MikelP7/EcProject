@@ -123,7 +123,7 @@ void PonerEnMarchaTempo()
 	TIMER0_CNT |= 0x00C0;
 }
 
-void PararTempo()
+void PararTiempo()
 {
 	TIMER0_CNT &= 0xff7f;
 }

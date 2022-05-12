@@ -8,7 +8,7 @@ y en otro ejemplo de Jaeden Ameronen
 #include <stdio.h>		//librería de entrada/salida estándar de C
 #include <stdlib.h>		//librería estándar de C para reserva de memoria y conversiones númericas
 #include <unistd.h>		//librería para asegurar la compatibilidad entre sistemas operativos
-
+#include <nds/ndstypes.h> // para el VBLANK
 //librerías desarrolladas por nosotros para el proyecto
 	
 #include "definiciones.h"
@@ -108,7 +108,9 @@ void juego()
 		    //animacionDino();
 
 			PonerEnMarchaTempo();
-			//dinoCorriendo();
+	//	MostrarDino(1,10,131);
+
+	//	animacionDino();
 
 			// agachar sprite
 			if(TeclaPulsada()==ABAJO){
@@ -130,12 +132,10 @@ void juego()
 			iprintf("\x1b[21;1HESTADO= CHOQUE   ");
 
 /*
-			if(TeclaPulsada()==ARRIBA){
-
+  		if(TeclaPulsada()==ARRIBA){
 				consoleClear();
 				ESTADO=MENU;
 			}	
-
 */ 
 			if(TeclaPulsada()==R){
 
@@ -159,6 +159,6 @@ void juego()
 			//ELIMINAR EN VER. FINAL
 			iprintf("\x1b[21;1HESTADO= SALTO  ");
 		}
-
+	swiWaitForVBlank();
 	}
 }
