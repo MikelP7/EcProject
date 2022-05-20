@@ -120,6 +120,8 @@ void RutAtencionTempo()
 		if (ESTADO == CORRER || ESTADO == AGACHAR) {
 			MostrarArbol_4(11,xCactus,yCactus);  // Muestra el Arbol4(cactus) en pantalla
 
+			MostrarArbol_2(12,xCactus2,yCactus2);  // Muestra el Arbol4(cactus) en pantalla
+
 		
 		    /* Controla el tiempo real transcurrido y calcula la puntuación */
 			if (tickTemp == 5) {
@@ -138,7 +140,7 @@ void RutAtencionTempo()
 					segPajaro++;
 					xPajaro=-20;
 
-					if (segPajaro == 10){
+					if (segPajaro == 5){
 						segPajaro=0;
 						xPajaro=255;
 						MostrarPajaro_alas_arriba(5,xPajaro,yPajaro);
@@ -147,7 +149,7 @@ void RutAtencionTempo()
 
 
 				//Cooldown del cactus2 para que salga de nuevo
-				if(seg3 == 20){
+				if(seg3 == 10){
 					MostrarArbol_2(12,xCactus2,yCactus2);
 				}
 
@@ -156,7 +158,7 @@ void RutAtencionTempo()
 					segCactus2++;
 					xCactus2=-30;
 
-					if(segCactus2 == 20){
+					if(segCactus2 == 15){
 						segCactus2=0;
 						xCactus2=255;
 						MostrarArbol_2(12,xCactus2,yCactus2);
@@ -176,10 +178,10 @@ void RutAtencionTempo()
 				cambioFondo++; //actualiza el fondo
 
 				// Actualiza la posición de los Sprites enemigos
-				if(seg3 >= 10) xPajaro=xPajaro-5;
+				if(seg3 >= 5) xPajaro=xPajaro-6;
 		
 				xCactus=xCactus-7;
-				if(seg3 >= 20) xCactus2=xCactus2-8;
+				if(seg3 >= 3) xCactus2=xCactus2-5;
 				
 				//Comprueba si el Cactus (MuestraArbol_4, con id 11) se sale de la pantalla
 				if (xCactus<=0)	xCactus=255;
@@ -353,6 +355,7 @@ void RutAtencionTempo()
 		//********SALTO********//
 		if(ESTADO == SALTO) {
 			MostrarArbol_4(11,xCactus,yCactus);  // Muestra el Arbol4(cactus) en pantalla
+			MostrarArbol_2(12,xCactus2,yCactus2);  // Muestra el Arbol4(cactus) en pantalla
 
 			// Borra los Dinosaurios con la pierna izda/dcha levantada
 			BorrarDino_izda(4,xDino,yDino);
@@ -375,13 +378,14 @@ void RutAtencionTempo()
 				puntos= 10*seg3;
 				iprintf("\x1b[19;6HPuntos:%d  ", puntos);
 				
-				//Cooldown del pajaro para que salga de nuevo  (Cooldown significa tiempo de espera)
+				//Cooldown del pajaro para que salga de nuevo (Cooldown significa tiempo de espera)
 				if(xPajaro <= 0){
 					BorrarPajaro_alas_abajo(6,xPajaro,yPajaro);
 					BorrarPajaro_alas_arriba(5,xPajaro,yPajaro);
 					segPajaro++;
+					xPajaro=-20;
 
-					if (segPajaro == 15){
+					if (segPajaro == 5){
 						segPajaro=0;
 						xPajaro=255;
 						MostrarPajaro_alas_arriba(5,xPajaro,yPajaro);
@@ -389,23 +393,21 @@ void RutAtencionTempo()
 				}
 
 
-				
 				//Cooldown del cactus2 para que salga de nuevo
-				if(seg3 == 20){
+				if(seg3 == 10){
 					MostrarArbol_2(12,xCactus2,yCactus2);
 				}
 
 				if(xCactus2 <= 0){
 					BorrarArbol_2(12,xCactus2,yCactus2);
 					segCactus2++;
-					xCactus2=0;
+					xCactus2=-30;
 
 					if(segCactus2 == 15){
 						segCactus2=0;
 						xCactus2=255;
 						MostrarArbol_2(12,xCactus2,yCactus2);
-					}
-
+					}	
 				}
 
 				//reinicia los ticks para entrar de nuevo al if
@@ -419,10 +421,10 @@ void RutAtencionTempo()
 				cambioFondo++; //actualiza el fondo
 
 				// Actualiza la posición de los Sprites enemigos
-				if(seg3 >= 10) xPajaro=xPajaro-5;
+				if(seg3 >= 5) xPajaro=xPajaro-6;
 		
 				xCactus=xCactus-7;
-				if(seg3 >= 20) xCactus2=xCactus2-8;
+				if(seg3 >= 3) xCactus2=xCactus2-8;
 				
 				//Comprueba si el Cactus (MuestraArbol_4, con id 11) se sale de la pantalla
 				if (xCactus<=0)	xCactus=255;

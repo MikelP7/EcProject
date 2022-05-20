@@ -48,7 +48,7 @@ void juego()
 
 
 
-	//******************************************************************************//
+	//******************** Flujo del juego *************************************//
 	while(1)
 	{	
 
@@ -78,13 +78,12 @@ void juego()
 			
 			iprintf("\x1b[5;5HSaltar= Cruceta ARRIBA   ");
 			iprintf("\x1b[7;5HAgacharse= Cruceta ABAJO   ");
-			iprintf("\x1b[9;5HIzquierda= Cruceta IZQUIERDA   ");
+			iprintf("\x1b[9;5HIzquierda= Cruceta IZDA.   ");
 			iprintf("\x1b[11;5HDerecha= Cruceta DERECHA   ");
-			iprintf("\x1b[13;5HPLAY= Tocar PANTALLA   ");
-			iprintf("\x1b[15;5HTERMINAR PARTIDA= 'A'   ");
 
+			iprintf("\x1b[15;5HPLAY= Tocar PANTALLA   ");
+			iprintf("\x1b[17;5HTERMINAR PARTIDA= 'A'   ");
 
-			//iprintf("\x1b[17;1HPANT_TOUCH= %d  ", TactilTocada());
 
 			// Si se pulsa cualquier parte del Táctil comienza la partida (tactil por encuesta)
 			if(TactilTocada()==1){
@@ -93,7 +92,6 @@ void juego()
 			}
 		
 		}
-
 
 
 
@@ -114,25 +112,12 @@ void juego()
 
 		}
 
-
 		//************CHOQUE************//
 		if (ESTADO == CHOQUE) {
 			iprintf("\x1b[5;10H*GAME OVER*");
 	
 		}
 
-
-/*
-
-		// // ***********SALTO*********** //
-
-		if (ESTADO == SALTO)
-		{
-			//ELIMINAR EN VER. FINAL
-			iprintf("\x1b[21;1HESTADO= SALTO  ");
-
-		} 
-*/
 		// Vblank sincroniza los frames
 		swiWaitForVBlank();
 	}
